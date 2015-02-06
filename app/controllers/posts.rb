@@ -5,7 +5,7 @@ end
 post '/posts' do
   # session[:user_id] = 1
   params[:new_post][:user_id] = current_user.id
-  Post.new(params[:new_post])
+  Post.create(params[:new_post])
   redirect '/'
 end
 
