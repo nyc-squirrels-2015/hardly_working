@@ -1,7 +1,7 @@
 # enable :sessions
 
 get '/' do
-  "howdy"
+  "page"
 end
 
 get '/login' do
@@ -9,11 +9,9 @@ get '/login' do
 end
 
 post '/login' do
-  p "ayo #{session}"
-  if user = User.find_by(username: params[:user][:username]).try(:authenticate, params[:user][:password])
-    session[:user_id] = user.id
-    p "inside #{session}"
-    redirect "/user/#{user.id}"
+  if @user = User.find_by(username: params[:user][:username]).try(:authenticate, params[:user][:password])
+    session[:user_id] = @user.id
+    redirect "/user/#{@user.id}"
   else
     redirect '/login'
   end
@@ -35,9 +33,24 @@ post '/signup' do
 end
 
 get '/user/:id' do |id|
-  # sessions issue
   @user = User.find(id)
-  erb :show
+  if session[:user_id] == @user.id
+    erb :show
+  else
+    redirect '/login'
+  end
 end
 
+delete "/delete/:user_id" do |user_id|
+  user = User.find(user_id)
+  user.delete
+  session.clear
+  redirect '/login'
+end
+
+put "/user/update/:id" do |id|
+  user = User.find(id)
+  user.update_attributes(username: params[:username])
+  redirect "/user/#{user.id}"
+end
 

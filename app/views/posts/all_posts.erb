@@ -1,4 +1,17 @@
 <h2>All posts:</h2>
+
 <% posts.each do |post| %>
   <p><%= post.title %><p>
+  <img  class="photo" src="<%=post.photo_url%>"><br>
+  <form action="/comment/<%=post.id%>" method= "GET">
+    <input type="submit" value="Comment">
+  </form>
+  <%post.comments.each do |comment|%>
+    <p><%=comment.content%></p>
+    <form action="/comment/<%=comment.id%>" method= "POST">
+      <input type="hidden" name="_method" value="Delete">
+      <input type="submit" value="Delete">
+    </form>
+  <%end%>
+
 <% end %>
