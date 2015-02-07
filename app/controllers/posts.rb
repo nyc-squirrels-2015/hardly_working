@@ -24,8 +24,9 @@ put '/posts/:id' do |id|
   redirect "/user/#{post.user_id}"
 end
 
-delete '/delete/:id' do |id|
+delete '/delete/post/:id' do |id|
   post = Post.find(id)
+  x = post.user_id
   post.delete
-  redirect "/user/#{post.user_id}"
+  redirect "/user/#{x}"
 end

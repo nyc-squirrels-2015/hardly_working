@@ -1,7 +1,7 @@
 # enable :sessions
 
 get '/' do
-  "page"
+  redirect '/login'
 end
 
 get '/login' do
@@ -43,6 +43,14 @@ end
 
 delete "/delete/:user_id" do |user_id|
   user = User.find(user_id)
+  # user.posts.each do |post|
+  #   post.each do |comment| do
+  #     comment.delete
+  #   end
+  # end
+  # user.posts.each do |post|
+  #   post.delete
+  # end
   user.delete
   session.clear
   redirect '/login'
