@@ -1,0 +1,16 @@
+<div>
+  <% @posts.each do |post| %>
+  Title: <%= post.title %>:
+</div>
+
+<div>
+  <img  class="photo" src="<%=post.photo_url%>">
+    <form action="/page" method="POST">
+      <input type="submit" value="WORKING HARD?">
+    </form>
+    <form action="/page" method="POST">
+      <input type="submit" value="HARDLY WORKING?">
+  </form>
+</div>
+
+<%end%>

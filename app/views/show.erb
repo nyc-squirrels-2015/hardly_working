@@ -1,12 +1,39 @@
+
 <div>
   <h3>Welcome <%= @user.username.capitalize %></h3>
 </div>
 
-
+<div>
+  <form action="/delete/<%=@user.id%>" method= "POST">
+      <input type="hidden" name="_method" value="Delete">
+      <input type="submit" value="Delete">
+    </form>
+<div>
+ <h3> Make Updates to Your Account Here: </h3>
+</div>
+ <form action="/user/update/<%=@user.id%>" method= "POST">
+    <input type="hidden" name="_method" value="Put">
+    Username: <input type="text" name="username"><br>
+    <!-- New Password: <input type="text" name="password"><br>
+    Confirm New Password: <input type="text" name="password_confirmation"></br> -->
+    <input type="submit" value="Update">
+  </form>
+</div>
   <h6>Here are all of your posts</h6>
   <% @user.posts.each do |post| %>
   Title: <%= post.title %>: <br>
     <img  class="photo" src="<%=post.photo_url%>"><br>
+    <div>
+ <form action="/edit/<%=post.id%>" method= "GET">
+    <input type="hidden" name="_method" value="Update Post">
+    <input type="submit" value="Update Post">
+  </form>
+  <form action="/delete/<%=post.id%>" method= "POST">
+    <input type="hidden" name="_method" value="Delete">
+    <input type="submit" value="Delete">
+  </form>
+  <h1>Make Your Comment Here</h1>
+</div>
      <h4> Comments: </h4>
     <%post.comments.each do |comment|%>
      <%=comment.content%><br>
