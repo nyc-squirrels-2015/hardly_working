@@ -1,0 +1,23 @@
+<h2>Working hard or hardly working?</h2>
+
+
+	<form action="/game/vote" method="POST">
+		<input type="submit" name="vote" value="vote up">
+		<input type="submit" name="vote" value="vote down">
+		<input type="hidden" name="post_id" value = "<%=post.id%>" >
+	</form>
+
+
+<form action="/game/rotate" method="POST">
+	<input type="submit" name="direction" value="back">
+	<input type="submit" name="direction" value="forward">
+	<input type="hidden" name="post_id" value="<%=post.id%>">
+</form>
+
+<img src="<%=post.photo_url%>">
+
+<p>Up votes: <%= post.positive_score %></p>
+<p>Down votes: <%= post.negative_score %></p>
+<p>Net score: <%= post.positive_score - post.negative_score %></p>
+
+<p><%= erb :'comments/comments_partial', locals: {post: post} %></p>
