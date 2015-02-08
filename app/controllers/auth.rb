@@ -23,7 +23,7 @@ end
 
 post '/signup' do
   User.create(params[:user])
-  redirect '/'
+  redirect '/login'
 end
 
 get '/user/:id' do |id|
