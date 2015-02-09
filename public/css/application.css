@@ -41,6 +41,12 @@ a {
     border: 1px solid black;
 }
 
+.game_photo {
+    height: 400px;
+    width: 400px;
+    border: 1px solid black;
+}
+
 a:visited {
     color: #AAA;
 }
