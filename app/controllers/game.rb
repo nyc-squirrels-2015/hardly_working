@@ -34,3 +34,22 @@ post '/game/rotate' do
   redirect "/game/post/#{params[:direction] == 'back' ? Post.previous_post_id(current_post.id) : Post.next_post_id(current_post.id)}"
 
 end
+
+#############################################
+
+get '/game/comment/:post_id' do
+  @post = params[:post_id]
+  erb :game_comment_form
+end
+
+post "/game/comments/:post_id" do
+  Comment.create(content: params[:content], post_id: params[:post_id], user_id: current_user.id)
+  redirect "/game/post/#{params[:post_id]}"
+end
+
+delete "/game/comment/:id" do |id|
+  comment = Comment.find(id)
+  x = comment.post_id
+  comment.delete
+  redirect "/game/post/#{x}"
+end

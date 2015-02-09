@@ -7,7 +7,7 @@
 		<input type="hidden" name="post_id" value = "<%=@post.id%>" >
 	</form>
 
-<form action="/users/<%=current_user.id%>" method="GET">
+<form action="/user/<%=current_user.id%>" method="GET">
   <input type="submit" value="Profile">
 </form>
 
@@ -25,15 +25,24 @@
 	<input type="hidden" name="post_id" value="<%=@post.id%>">
 </form>
 
-<img src="<%=@post.photo_url%>">
+<img class="game_photo" src="<%=@post.photo_url%>">
 
 <p>Up votes: <%= @post.positive_score %></p>
 <p>Down votes: <%= @post.negative_score %></p>
 <p>Net score: <%= @post.positive_score - @post.negative_score %></p>
 
-<!-- <div class="comments">
-  <%# @comments.each do |comment| %>
-    <p>By:<%#= comment.user.username %></p>
-    <p><%#=comment.content %></p>
-  <%#end%>
-</div> -->
+<h3>Comments</h3>
+
+<form action="/game/comment/<%=@post.id%>" method= "GET">
+    <input type="submit" value="Make Comment">
+  </form>
+
+<%@post.comments.each do |comment|%>
+<%=  comment.content%><br>
+<% if current_user.id == comment.user_id%>
+    <form action="/game/comment/<%=comment.id%>" method= "POST">
+      <input type="hidden" name="_method" value="Delete">
+      <input type="submit" value="Delete">
+    </form>
+<%end %>
+<%end%>

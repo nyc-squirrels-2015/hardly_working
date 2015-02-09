@@ -12,10 +12,12 @@
   </form>
   <%post.comments.each do |comment|%>
     <p><%=comment.content%></p>
+<% if current_user.id == comment.user_id%>
     <form action="/comment/<%=comment.id%>" method= "POST">
       <input type="hidden" name="_method" value="Delete">
       <input type="submit" value="Delete">
     </form>
+    <%end %>
   <%end%>
 
 <% end %>
