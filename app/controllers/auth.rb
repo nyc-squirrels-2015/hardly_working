@@ -26,6 +26,7 @@ post '/signup' do
   redirect '/login'
 end
 
+# This looks like something that belongs in a different controller
 get '/user/:id' do |id|
   @user = User.find(id)
   if session[:user_id] == @user.id
@@ -36,6 +37,9 @@ get '/user/:id' do |id|
 end
 
 delete "/delete/:user_id" do |user_id|
+  # if you want to destroy all the posts created by a user,
+  # use the dependant: :destroy in your User model.
+  # Also, move this route to the User controller
   user = User.find(user_id)
   x = Post.where(user_id: user.id)
   x.each{|pl| pl.comments{|a| a.destroy}}
